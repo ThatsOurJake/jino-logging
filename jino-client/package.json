@@ -1,6 +1,6 @@
 {
   "name": "jino-client",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "main": "dist/index.js",
   "files": [
@@ -13,7 +13,8 @@
   },
   "scripts": {
     "build": "parcel build && yarn declarations",
-    "declarations": "tsc --emitDeclarationOnly --declaration --declarationMap --outDir dist"
+    "declarations": "tsc --emitDeclarationOnly --declaration --declarationMap --outDir dist",
+    "publish": "yarn build && npm publish"
   },
   "targets": {
     "jino-client": {
