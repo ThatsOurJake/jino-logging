@@ -1,0 +1,32 @@
+{
+  "name": "jino-client",
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "@types/node": "^20.10.5",
+    "parcel": "^2.10.3",
+    "typescript": "^5.3.3"
+  },
+  "scripts": {
+    "build": "parcel build && yarn declarations",
+    "declarations": "tsc --emitDeclarationOnly --declaration --declarationMap --outDir dist"
+  },
+  "targets": {
+    "jino-client": {
+      "source": "src/client/index.ts",
+      "distDir": "dist/client",
+      "isLibrary": true,
+      "outputFormat": "commonjs"
+    },
+    "jino-server": {
+      "source": "src/server/index.ts",
+      "distDir": "dist/server",
+      "isLibrary": true,
+      "outputFormat": "commonjs"
+    }
+  }
+}
