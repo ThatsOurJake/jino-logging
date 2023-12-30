@@ -21,7 +21,7 @@ const config: Config = {
   transports: {
     file: {
       isEnabled: process.env.TRANSPORT_FILE_ENABLED === "true",
-      location: process.env.TRANSPORT_FILE_LOCATION || path.resolve(__dirname, '../logs/logs.log'),
+      location: process.env.TRANSPORT_FILE_LOCATION || path.resolve(__dirname, '../logs'),
     },
   },
   port: process.env.PORT || 3000,

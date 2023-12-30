@@ -17,7 +17,7 @@ const { transports: { file: { location }}} = config;
 
 const fileTransport: Transport = {
   process: (payload: LogMessageDIO) => {
-    if (!fs.existsSync(path.dirname(location))) {
+    if (!fs.existsSync(location)) {
       logger.error({
         key: 'error.invalid-file-location',
         message: `Invalid file location: ${location}`,
@@ -29,7 +29,7 @@ const fileTransport: Transport = {
 
     const logMessage = constructLogMessage(payload);
 
-    fs.appendFile(location, logMessage, (err) => {
+    fs.appendFile(path.join(location, `${payload.appName}.log`), logMessage, (err) => {
       if (err) {
         logger.error({
           key: 'error.file-transport',
