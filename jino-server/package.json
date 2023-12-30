@@ -19,6 +19,8 @@
     "typescript": "^5.3.3"
   },
   "scripts": {
-    "dev": "TRANSPORT_FILE_ENABLED=true nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts"
+    "dev": "TRANSPORT_FILE_ENABLED=true nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
+    "build": "NODE_ENV=production rm -rf dist && tsc",
+    "start": "NODE_ENV=production node dist/index.js"
   }
 }
