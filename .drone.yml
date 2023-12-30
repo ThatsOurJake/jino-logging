@@ -12,7 +12,7 @@ steps:
       from_secret: docker_password
     repo: thatsourjake/jino-server
     dockerfile: Dockerfile
-    context: ./server
+    context: ./jino-server
     tags:
       - latest
       - "${DRONE_COMMIT_SHA:0:8}"
