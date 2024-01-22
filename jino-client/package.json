@@ -7,11 +7,15 @@
     "dist"
   ],
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.5",
     "@types/node": "^20.10.5",
     "rollup": "^4.9.1",
     "rollup-plugin-dotenv": "^0.5.0",
+    "rollup-plugin-progress": "^1.1.2",
     "tslib": "^2.6.2",
     "typescript": "^5.3.3"
   },
@@ -19,5 +23,6 @@
     "build": "rm -rf dist && rollup -c && yarn declarations",
     "declarations": "tsc src/index.ts --emitDeclarationOnly --declaration --declarationMap --outDir dist",
     "prepublishOnly": "NODE_ENV=production yarn build"
-  }
+  },
+  "dependencies": {}
 }

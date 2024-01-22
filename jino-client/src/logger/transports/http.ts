@@ -1,11 +1,12 @@
-import { Transport } from ".";
-import { LogPayload } from "..";
+import type { Transport } from ".";
+import type { LogPayload } from "..";
 
 const LOGGER_ENDPOINT = process.env.LOGGER_ENDPOINT || "http://localhost:3000";
 
 // TODO api key
 // TODO retry
 // TODO queue and filter duplicates
+// TODO use beacon api
 
 const httpTransport: Transport = {
   log: (payload: LogPayload) => {

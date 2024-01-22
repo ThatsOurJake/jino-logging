@@ -6,8 +6,7 @@
   "private": true,
   "workspaces": [
     "jino-client",
-    "jino-server",
-    "examples"
+    "jino-server"
   ],
   "devDependencies": {
     "@parcel/packager-ts": "2.10.3",

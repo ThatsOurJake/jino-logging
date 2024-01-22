@@ -1,15 +1,20 @@
 import Koa from 'koa';
 import Router from 'koa-router';
 import bodyParser from 'koa-bodyparser';
+import cors from '@koa/cors';
+
 import config from './config';
 import logger from './logger';
 import validators from './validators';
 import transports, { enabledTransports } from './transports';
+import obfuscator from './obfuscator';
 
 const app = new Koa();
 const router = new Router();
 
-// TODO CORS
+app.use(cors({
+  origin: config.cors,
+}));
 
 app.use(bodyParser());
 
@@ -19,14 +24,13 @@ export interface LogMessageDIO {
   stack?: string;
   correlationId?: string;
   sessionId?: string;
-  custom?: object;
+  custom?: { [key: string]: string | number | boolean };
   appName: string;
   level: string;
   timestamp: number;
 }
 
 router.post('/log', (ctx) => {
-  // TODO obfuscate sensitive data
   // TODO apiKey
 
   const payload = ctx.request.body as LogMessageDIO;
@@ -46,8 +50,10 @@ router.post('/log', (ctx) => {
     return;
   }
 
+  const obfuscatedPayload = obfuscator.obfuscate(payload);
+
   transports.forEach((transport) => {
-    transport.process(payload);
+    transport.process(obfuscatedPayload);
   });
 
   ctx.status = 202;

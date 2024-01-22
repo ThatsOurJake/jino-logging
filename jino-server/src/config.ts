@@ -15,6 +15,7 @@ interface Transports {
 interface Config {
   transports: Transports;
   port: string | number;
+  cors: string;
 }
 
 const config: Config = {
@@ -25,6 +26,7 @@ const config: Config = {
     },
   },
   port: process.env.PORT || 3000,
+  cors: process.env.CORS || '*',
 };
 
 export default config;
