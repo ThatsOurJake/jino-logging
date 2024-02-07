@@ -1,3 +1,4 @@
+import obfuscator from "./obfuscator";
 import transportMap, { type LoggerTransport } from "./transports";
 
 const LOGGER_LEVEL = process.env.LOGGER_LEVEL || "info";
@@ -24,7 +25,9 @@ const canLog = (level: LoggingLevels) => {
   return loggingLevelTable[getCurrentLevel()].includes(level);
 };
 
-type valueFunc = (() => string) | string;
+type Nullable<T> = T | null | undefined;
+
+type valueFunc = (() => Nullable<string>) | string;
 
 export interface LogMessage {
   key: string;
@@ -32,10 +35,10 @@ export interface LogMessage {
   stack?: string;
   correlationId?: valueFunc;
   sessionId?: valueFunc;
-  custom?: object;
+  custom?: { [key: string]: string | number | boolean };
 }
 
-interface BaseLogPayload extends Partial<LogMessage> {};
+export interface BaseLogPayload extends Partial<LogMessage> {};
 
 export interface LogPayload extends LogMessage {
   appName: string;
@@ -68,6 +71,10 @@ const createLogger = (opts: LoggerOptions, keyPrefix: string, baseLogPayload: Ba
     throw new Error("appName is required");
   }
 
+  if (transports.includes('console') && transports.includes('simple')) {
+    throw new Error("transports cannot include both console and simple");
+  }
+
   const log = (logLevel: LoggingLevels, msg: LogMessage) => {
     const payload: LogPayload = {
       ...transformBaseLogPayload(baseLogPayload),
@@ -80,9 +87,11 @@ const createLogger = (opts: LoggerOptions, keyPrefix: string, baseLogPayload: Ba
 
     const funcs = transports.map((transport) => transportMap[transport].log);
 
+    const obfuscatedPayload = obfuscator.obfuscate(payload);
+
     funcs.forEach((func) => {
       if (canLog(logLevel)) {
-        func(payload);
+        func(obfuscatedPayload);
       }
     });
   };
