@@ -1,10 +1,20 @@
 {
   "name": "jino-client",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "license": "MIT",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
     "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ThatsOurJake/jino-logging"
+  },
+  "author": "ThatsOurJake",
+  "keywords": [
+    "logging",
+    "personal-use"
   ],
   "devDependencies": {
     "@rollup/plugin-commonjs": "^25.0.7",
